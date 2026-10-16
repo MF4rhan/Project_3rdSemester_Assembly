@@ -1,0 +1,44 @@
+# Visual Studio directories
+.vs/
+Debug/
+Release/
+x64/
+x86/
+build/
+bin/
+obj/
+ipch/
+
+# Visual Studio user-specific and tracking files
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.db
+*.opendb
+
+# Assembly / MASM compilation artifacts & binaries
+*.obj
+*.iobj
+*.exe
+*.dll
+*.lib
+*.exp
+*.ilk
+*.pdb
+*.idb
+*.ipdb
+*.lst
+*.map
+*.tlog
+*.lastbuildstate
+*.log
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+.history/
+
+# OS-specific
+Thumbs.db
+.DS_Store
