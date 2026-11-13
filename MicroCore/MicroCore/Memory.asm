@@ -46,7 +46,7 @@ ReadDataMemory PROC STDCALL, address:DWORD
 	mov eax, address
 
 	cmp eax, MEMORY_SIZE
-	jge invalidDataRead
+	jae invalidDataRead
 
 	mov eax, DataMemory[eax*4]
 
@@ -67,7 +67,7 @@ WriteDataMemory PROC STDCALL, address:DWORD, value:DWORD
 	mov eax, address
 	
 	cmp eax, MEMORY_SIZE
-	jge invalidDataWrite
+	jae invalidDataWrite
 
 	mov edx, value
 	mov DataMemory[eax*4], edx
@@ -83,30 +83,98 @@ WriteDataMemory ENDP
 
 
 
-ReadProgramMemory PROC
+ReadProgramMemory PROC STDCALL, address:DWORD
 
+	mov eax, address
 
+	cmp eax, MEMORY_SIZE
+	jge invalidDataRead
+	
+	mov eax, ProgramMemory[eax*4]
+
+	clc
+	ret
+
+InvalidDataRead:
+	xor eax, eax
+	stc
 	ret
 
 ReadProgramMemory ENDP
 
 
 
-LoadProgram PROC
+WriteProgramMemory PROC STDCALL, address:DWORD, instruction:DWORD
+
+	mov eax, address
+
+	cmp eax, MEMORY_SIZE
+	jae invalidProgramWrite
+
+	mov edx, instruction
+	mov ProgramMemory[eax*4], edx
+
+	mov eax, 1
+	ret
+
+invalidProgramWrite:
+	xor eax, eax
+	ret
+
+WriteProgramMemory ENDP
 
 
+
+LoadProgram PROC STDCALL, pProgram:PTR DWORD, instructionCount:DWORD
+
+	push esi
+	push edi
+
+	mov eax, instructionCount
+
+	cmp eax, MEMORY_SIZE
+	ja loadProgramFailed
+
+	cmp eax, 0
+	je clearProgramOnly
+
+	cmp pProgram, 0
+	je loadProgramFailed
+
+ClearProgramOnly:
+
+	cld
+	mov edi, OFFSET ProgramMemory
+	mov ecx, MEMORY_SIZE
+	xor eax, eax
+	rep stosd   ; store string doubleword, writes eax value to memory location pointed by edi, rep repeats ecx times
+
+	mov esi, pProgram
+	mov edi, OFFSET ProgramMemory
+	mov ecx, instructionCount
+	rep movsd   ; MOVSD copies one DWORD from the memory location pointed to by ESI into the memory location pointed to by EDI.
+
+	mov eax, 1
+	jmp LoadProgramDone
+
+LoadProgramFailed:
+	xor	eax, eax
+
+LoadProgramDone:
+	pop edi
+	pop esi
 	ret
 
 LoadProgram ENDP
 
 
 
-ValidateAddress PROC
+ValidateAddress PROC STDCALL, address:DWORD
 	
 	mov eax, address
 
 	cmp eax, MEMORY_SIZE
-	jge invalidAddress
+	jae invalidAddress
 
 	mov eax, 1
 	ret
