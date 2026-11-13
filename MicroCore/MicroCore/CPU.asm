@@ -11,17 +11,29 @@ INCLUDE MicroCore.inc
 
 	PC DWORD 0
 	IR DWORD 0
-	FLAGS DWORD 0
-	HALTED DWORD 0
+	CPUFlags DWORD 0
+	CPUHalted DWORD 0
 	
 	; The 8 lines above are for Virtual CPU's registers and status variables
 
 .code
-main PROC
 
+PUBLIC InitializeCPU
 
+InitializeCPU PROC
 
-exit
-main ENDP
-end main
+	mov R0, 0
+	mov R1, 0
+	mov R2, 0
+	mov R3, 0
+
+	mov PC, 0
+	mov IR, 0
+	mov CPUFlags, 0
+	mov CPUHalted, 0
+
+	ret
+
+InitializeCPU ENDP
+END
 

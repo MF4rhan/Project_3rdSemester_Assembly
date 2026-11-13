@@ -21,3 +21,5 @@ InitializeMemory PROTO
 InitializeCPU PROTO
 ExecuteNextInstruction PROTO
 DisplayDashboard PROTO
+
+; Above 4 lines tell MASM that these procedures exist and can be called from another module.
