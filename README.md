@@ -302,6 +302,13 @@ MicroCore/
     └── MicroCore.vcxproj.filters
 ```
 
+Consistent across all modules:
+
+- *13 instructions/opcodes* (LOADI, MOV, ADD, SUB, MUL, DIV, LOAD, STORE, CMP, JMP, JZ, JNZ, HALT).
+- *4 general-purpose registers:* R0, R1, R2, R3.
+- Use `INVOKE` to call Memory procedures and pass parameters. Read procedures return values in EAX.
+- *PC convention:* PC always points to the next instruction to execute. After fetching an instruction, increment PC by 1. Jump instructions overwrite PC with the target address.
+
 ## Technologies
 
 - 32-bit x86 Assembly Language
