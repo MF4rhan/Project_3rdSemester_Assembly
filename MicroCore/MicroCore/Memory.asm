@@ -9,8 +9,14 @@ INCLUDE MicroCore.inc
 
 .code
 
+PUBLIC DataMemory, ProgramMemory
 PUBLIC InitializeMemory
+PUBLIC ValidateAddress
+PUBLIC ReadDataMemory, WriteDataMemory
+PUBLIC ReadProgramMemory, WriteProgramMemory
+PUBLIC LoadProgram
 
+; InitializeMemory clears both memory arrays
 InitializeMemory PROC
 	
 	mov ecx, MEMORY_SIZE
@@ -32,6 +38,85 @@ ClearProgram:
 	ret
 
 InitializeMemory ENDP
+
+
+
+ReadDataMemory PROC STDCALL, address:DWORD
+
+	mov eax, address
+
+	cmp eax, MEMORY_SIZE
+	jge invalidDataRead
+
+	mov eax, DataMemory[eax*4]
+
+	clc
+	ret
+
+invalidDataRead:
+	xor eax, eax
+	stc
+	ret	
+	
+ReadDataMemory ENDP
+
+
+
+WriteDataMemory PROC STDCALL, address:DWORD, value:DWORD
+
+	mov eax, address
+	
+	cmp eax, MEMORY_SIZE
+	jge invalidDataWrite
+
+	mov edx, value
+	mov DataMemory[eax*4], edx
+
+	mov eax, 1
+	ret
+
+invalidDataWrite:
+	xor eax, eax
+	ret
+
+WriteDataMemory ENDP
+
+
+
+ReadProgramMemory PROC
+
+
+	ret
+
+ReadProgramMemory ENDP
+
+
+
+LoadProgram PROC
+
+
+	ret
+
+LoadProgram ENDP
+
+
+
+ValidateAddress PROC
+	
+	mov eax, address
+
+	cmp eax, MEMORY_SIZE
+	jge invalidAddress
+
+	mov eax, 1
+	ret
+
+invalidAddress:
+	xor eax, eax
+	ret
+
+ValidateAddress ENDP
+
 
 END
 

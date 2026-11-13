@@ -16,10 +16,22 @@ OP_JZ    EQU 11
 OP_JNZ   EQU 12
 OP_HALT  EQU 13
 
-; Procedure declarations
-InitializeMemory PROTO
+; Other Procedure declarations
 InitializeCPU PROTO
 ExecuteNextInstruction PROTO
 DisplayDashboard PROTO
 
-; Above 4 lines tell MASM that these procedures exist and can be called from another module.
+; Memory Procedure declarations
+InitializeMemory PROTO
+ValidateAddress PROTO, address:DWORD
+
+ReadDataMemory PROTO, address:DWORD
+WriteDataMemory PROTO, address:DWORD, value:DWORD
+
+ReadProgramMemory PROTO, address:DWORD
+WriteProgramMemory PROTO, address:DWORD, instruction:DWORD
+
+LoadProgram PROTO, pPRogram:PTR DWORD, instructionCount:DWORD
+
+
+; These declarations lines tell MASM that these procedures exist and can be called from another module.
