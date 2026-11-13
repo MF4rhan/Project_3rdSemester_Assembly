@@ -1,15 +1,20 @@
-include Irvine32.inc
+INCLUDE Irvine32.inc
+INCLUDE MicroCore.inc
 
 
 .data
 
 
-
 .code
 main PROC
 
-call dumpregs
+    call InitializeMemory
+    call InitializeCPU
 
-exit
+    ; Load user's program here later
+
+    ; Start dashboard/menu here later
+
+    exit
 main ENDP
 end main

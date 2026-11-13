@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="MicroCore/MicroCore.vcxproj" />
+  <Project Path="MicroCore/MicroCore.vcxproj" Id="f484adf4-5fb4-4659-88a6-b482765191f4" />
 </Solution>
